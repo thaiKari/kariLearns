@@ -1,2 +1,2 @@
 # kariLearns
-Tutorials Ive completed with some comments and main take aways. Mainly as a reference for myself.
+Tutorials I've completed with some comments and main take aways. Mainly as a reference for myself.
