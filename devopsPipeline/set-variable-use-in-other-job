@@ -1,0 +1,30 @@
+
+
+stages:
+  - stage: LintTestBuild
+    variables:
+      NODE_OPTIONS: --max_old_space_size=16384
+    jobs:
+      - job: job_SetVar
+        displayName: Set variable in this job
+        steps:
+          - template: pipeline/setup/get-info.yml
+          - task: PowerShell@2
+            displayName: 'set var'
+            name: task_SetVar
+            inputs:
+              targetType: 'inline'
+              script: |
+                $testvar="hallopado"
+                Write-Host "##vso[task.setvariable variable=testvar;isOutput=true]$testvar"
+                echo $testvar
+      - job: job_useVar
+        displayName: use variable in this job
+        dependsOn: ['job_SetVar']
+        variables:
+          testvar1: hi
+          testvar2: $[ dependencies.job_SetVar.outputs['task_SetVar.testvar'] ]
+        steps:
+          - script: echo 'yep'
+          - script: echo $(testvar1)
+          - script: echo $(testvar2)
