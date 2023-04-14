@@ -1,0 +1,3 @@
+          dependsOn:
+              - ${{ each app in parameters.apps.enabled }}:
+                    - SwapSlots${{ app.displayName }}Dev
